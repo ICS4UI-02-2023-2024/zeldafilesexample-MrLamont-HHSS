@@ -70,34 +70,71 @@ public class Map {
         this.scenes[i] = s;
        }
 
+       // try to find the starting scene
+       this.currentScene = this.findScene(this.currentRow, this.currentCol);
+
     }
 
     public Scene findScene(int row, int col){
-        
+        // go through each scene
+        for(Scene s: this.scenes){
+            // do the row and column match
+            if(s.getCol() == this.currentCol 
+              && s.getRow() == this.currentRow){
+                // found the scene
+                return s;
+            }
+        }
+        // didn't find a matching scene
+        return null;
     }
 
     public void moveNorth(){
-       
+       // can we move north?
+       if(this.currentScene.canMoveNorth()){
+        // move the character north
+        this.currentRow--;
+        // change the scene
+        this.currentScene = this.findScene(this.currentRow, this.currentCol);
+       }
     }
 
     public void moveEast(){
-        
+        // can we move east?
+       if(this.currentScene.canMoveEast()){
+        // move the character north
+        this.currentCol++;
+        // change the scene
+        this.currentScene = this.findScene(this.currentRow, this.currentCol);
+       }
     }
 
     public void moveSouth(){
-       
+       // can we move south?
+       if(this.currentScene.canMoveSouth()){
+        // move the character north
+        this.currentRow++;
+        // change the scene
+        this.currentScene = this.findScene(this.currentRow, this.currentCol);
+       }
     }
 
     public void moveWest(){
-       
+       // can we move west?
+       if(this.currentScene.canMoveWest()){
+        // move the character north
+        this.currentCol--;
+        // change the scene
+        this.currentScene = this.findScene(this.currentRow, this.currentCol);
+       }
     }
 
     public BufferedImage getImage(){
-       
+       return this.currentScene.getImage();
     }
 
     public String getDescription(){
-        
+        return this.currentScene.getDescription();
     }
 
 }
